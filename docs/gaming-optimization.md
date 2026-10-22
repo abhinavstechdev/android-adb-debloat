@@ -56,7 +56,33 @@ Activates iQOO's high-performance CPU/GPU scheduler profile:
 adb shell settings put system pemMonsterState 1
 ```
 
+### 6. Ahead-Of-Time (AOT) Native Code Compilation (`speed` filter)
+Eliminates Android Runtime (ART) Just-In-Time (JIT) compilation spikes during gameplay. Dex bytecode is pre-compiled into direct ARM machine code, preventing frame drops during explosions, asset loading, or sudden combat encounters:
+```bat
+adb shell cmd package compile -m speed -f com.dts.freefiremax
+adb shell cmd package compile -m speed -f com.pubg.imobile
+adb shell cmd package compile -m speed -f com.activision.callofduty.shooter
+adb shell cmd package compile -m speed -f com.supercell.clashroyale
+```
+
+### 7. Power & Thermal Standby Whitelist (`deviceidle`)
+Exempts primary game processes from aggressive OS battery throttling and background socket suspension:
+```bat
+adb shell dumpsys deviceidle whitelist +com.dts.freefiremax
+adb shell dumpsys deviceidle whitelist +com.pubg.imobile
+adb shell dumpsys deviceidle whitelist +com.activision.callofduty.shooter
+adb shell dumpsys deviceidle whitelist +com.supercell.clashroyale
+```
+
+### 8. Touch Response & Hold Latency Tuning
+Reduces hold-gesture detection threshold from standard 400ms to 300ms for faster trigger reaction and scope response:
+```bat
+adb shell settings put secure long_press_timeout 300
+adb shell settings put system pointer_speed 7
+```
+
 ---
+
 
 ## One-Click Script
 

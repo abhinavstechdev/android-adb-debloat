@@ -59,8 +59,32 @@ Write-Host "[4/5] Stabilizing Wi-Fi latency (preventing in-game ping spikes)..."
 & $adb shell "settings put global wifi_verbose_logging_enabled 0"
 Write-Host "      Wi-Fi Scan Throttling: Enabled (stops background network scans)" -ForegroundColor Green
 
-Write-Host "[5/5] Activating Monster Mode governor..." -ForegroundColor Cyan
+Write-Host "[5/8] Activating Monster Mode governor..." -ForegroundColor Cyan
 & $adb shell "settings put system pemMonsterState 1"
 Write-Host "      Monster Mode Profile: Active" -ForegroundColor Green
 
+Write-Host "[6/8] Whitelisting gaming packages from battery/CPU throttling..." -ForegroundColor Cyan
+& $adb shell "dumpsys deviceidle whitelist +com.dts.freefiremax" | Out-Null
+& $adb shell "dumpsys deviceidle whitelist +com.pubg.imobile" | Out-Null
+& $adb shell "dumpsys deviceidle whitelist +com.activision.callofduty.shooter" | Out-Null
+& $adb shell "dumpsys deviceidle whitelist +com.supercell.clashroyale" | Out-Null
+Write-Host "      Power Whitelist: Games exempt from background CPU/network throttle" -ForegroundColor Green
+
+Write-Host "[7/8] Tuning touch response and hold timeout..." -ForegroundColor Cyan
+& $adb shell "settings put secure long_press_timeout 300"
+& $adb shell "settings put system pointer_speed 7"
+Write-Host "      Touch Latency: Long press reduced to 300ms, pointer speed set to 7 (Max)" -ForegroundColor Green
+
+Write-Host "[8/8] Ahead-Of-Time (AOT) compiling games to native machine code..." -ForegroundColor Cyan
+Write-Host "      Compiling Free Fire MAX..." -ForegroundColor Gray
+& $adb shell "cmd package compile -m speed -f com.dts.freefiremax" | Out-Null
+Write-Host "      Compiling BGMI..." -ForegroundColor Gray
+& $adb shell "cmd package compile -m speed -f com.pubg.imobile" | Out-Null
+Write-Host "      Compiling Call of Duty: Mobile..." -ForegroundColor Gray
+& $adb shell "cmd package compile -m speed -f com.activision.callofduty.shooter" | Out-Null
+Write-Host "      Compiling Clash Royale..." -ForegroundColor Gray
+& $adb shell "cmd package compile -m speed -f com.supercell.clashroyale" | Out-Null
+Write-Host "      ART Compilation: JIT runtime compilation stutter eliminated (native ARM code)" -ForegroundColor Green
+
 Write-Host "`n[✓] All gaming optimizations applied successfully!" -ForegroundColor Green
+
