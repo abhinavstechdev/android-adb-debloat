@@ -6,7 +6,7 @@ This guide covers the initial connection and read-only package discovery workflo
 
 Use the official Google download page:
 
-https://developer.android.com/tools/releases/platform-tools
+<https://developer.android.com/tools/releases/platform-tools>
 
 Extract the downloaded ZIP to a stable location, for example:
 

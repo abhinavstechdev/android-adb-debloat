@@ -5,6 +5,7 @@
 This repository provides documentation and an AI-agent skill for Android ADB package review. It is not a device-management service and does not directly connect to or control a user's phone.
 
 Report issues involving:
+
 - Commands that could unexpectedly damage a device or impair core functionality.
 - Incorrect or overconfident package-removal guidance.
 - Unsafe recovery instructions.

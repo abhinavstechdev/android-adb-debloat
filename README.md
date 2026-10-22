@@ -1,58 +1,71 @@
 # Android ADB Debloat
 
-A safety-first ADB package review toolkit focused on Vivo and iQOO phones.
+A safety-first ADB package review toolkit and AI agent skill focused on **Vivo and iQOO smartphones** (Funtouch OS & OriginOS).
 
-**Inspect → identify → assess → confirm → change one thing → verify → restore if needed.**
+**Inspect → Identify → Assess → Confirm → Change One Package → Verify → Restore if Needed.**
 
-## What is included
+---
 
-- Reusable AI-agent skill for evidence-based Android package assessment.
-- Windows PowerShell helper for read-only inventory, device/build capture, and individually confirmed package actions.
-- Safety and recovery documentation, review template, and contribution standards.
-- XDA/community research notes with clear limits on what forum reports can establish.
+## What is Included
 
-## Quick start (Windows)
+- **AI Agent Skill (`SKILL.md`):** Complete workflow instructions for LLM coding agents to conduct evidence-based Android package analysis, risk assessment, and safe debloating.
+- **Windows Interactive PowerShell Tool (`scripts/vivo-iqoo-adb-tool.ps1`):** A safe, menu-driven PowerShell utility supporting read-only audits, package inspection, keyword searching, individually confirmed actions, critical package stop-lists, and Funtouch OS restriction handling.
+- **Verified Package Catalog & Risk Tiers (`docs/safe-removal.md`):** Evidence-based categorization of Vivo, iQOO, BBK, Meta, and Google packages across Tier 1 (Low Risk), Tier 2 (Medium Risk), and Tier 3 (Critical System Guardrails).
+- **Recovery & Troubleshooting Protocols (`docs/recovery.md`):** Exact recovery procedures for real-world regressions documented on XDA Forums (broken file pickers, navigation gesture failure, permission prompt crashes, and locked bootloader recovery).
+- **XDA Community Research Dossier (`research/xda-vivo-iqoo.md`):** Technical analysis of community findings across Funtouch OS 11 through 15, `DELETE_FAILED_USER_RESTRICTED` binder policies, and bootloader recovery constraints.
+- **Reproducible Test Protocol (`docs/test-protocol.md`):** Standardized reporting template for recording device-specific test results with regression checklists.
 
-1. Install Google's [Android SDK Platform-Tools](https://developer.android.com/tools/releases/platform-tools).
-2. Enable Developer options and USB debugging on the phone. Connect it and approve the computer's RSA prompt.
-3. Open PowerShell in the Platform-Tools folder (or ensure adb is on PATH).
-4. Verify one authorized device with `adb devices`.
-5. Download [the interactive script](scripts/vivo-iqoo-adb-tool.ps1) and run it from PowerShell:
+---
+
+## Quick Start (Windows)
+
+1. Download and extract Google's official [Android SDK Platform-Tools](https://developer.android.com/tools/releases/platform-tools) (e.g., to `C:\platform-tools`).
+2. On your Vivo/iQOO phone:
+   - Go to **Settings → About phone** and tap **Build number** 7 times.
+   - Go to **Developer options** and turn on **USB debugging**.
+   - Connect the phone via USB and select **File Transfer (MTP)** mode.
+   - Unlock the phone and approve the computer's RSA debugging prompt.
+3. Open PowerShell in the repository folder:
 
    ```powershell
    Set-ExecutionPolicy -Scope Process Bypass
-   .\vivo-iqoo-adb-tool.ps1
+   .\scripts\vivo-iqoo-adb-tool.ps1
    ```
 
-   If running from the repository root, use `.scripts\vivo-iqoo-adb-tool.ps1`.
+4. Choose **Option 1 (Create read-only audit snapshot)** first. Review your captured device properties and package lists before making any changes.
+5. Use **Option 7 (Inspect package)** and **Option 8 (Search packages)** to evaluate candidate apps.
+6. Prefer **Option 3 (Disable package)** over uninstalling. Disabling is 100% reversible and avoids package database corruption.
 
-6. Choose **1** first to save a read-only audit. Review the captured build and package IDs before making changes.
+---
 
-The script requires exactly one authorized device. It has no bulk-removal mode. Each package action requires typing the full action and package ID. Its critical-name stop-list is a guardrail, not a safety classifier.
+## Safety Status — Read Before Use
 
-## Safety status — read before use
+- **No package is universally safe on every device:** Firmware differences between Funtouch OS (Global/India) and OriginOS (China) mean that package roles and dependencies vary.
+- **Modern Vivo and iQOO devices have permanently locked bootloaders:** Fastboot flashing is not available. If a critical component like the launcher or gesture engine is removed, recovery requires a full factory reset via stock recovery mode.
+- **Never use automated bulk-uninstall scripts:** Batch deletions make it impossible to isolate which package broke a feature. Always change one package at a time and reboot to verify.
 
-**No Vivo/iQOO package is represented here as universally tested-safe.** The script has not been validated on every model or firmware, and community forum posts are not formal certification. Review the script before running it and test on a spare/non-critical device first. Start with inventory; prefer disabling a single well-understood package over uninstalling it; reboot and test core phone functions before proceeding.
+---
 
-Restore attempts use `pm enable PACKAGE.ID` or `pm install-existing --user 0 PACKAGE.ID` where supported. These do not guarantee recovery of app data or every firmware-specific dependency. Back up personal data separately.
+## Documentation Index
 
-## Research and docs
+- [Safe Package Evaluation & Removal Guide](docs/safe-removal.md)
+- [Recovery & Troubleshooting Guide](docs/recovery.md)
+- [XDA Research Notes & Analysis](research/xda-vivo-iqoo.md)
+- [Device Test Protocol & Current Status](docs/test-protocol.md)
+- [Windows ADB Setup Guide](docs/windows-setup.md)
+- [Package Review Template](docs/package-review-template.md)
+- [Agent Skill Guide](SKILL.md)
 
-- [Windows ADB setup](docs/windows-setup.md)
-- [Safe package evaluation and removal](docs/safe-removal.md)
-- [Recovery and troubleshooting](docs/recovery.md)
-- [Package review template](docs/package-review-template.md)
-- [XDA / Vivo-iQOO research notes](research/xda-vivo-iqoo.md)
-- [Device test protocol and current validation status](docs/test-protocol.md)
-- [Agent skill](SKILL.md)
+---
 
-## Project principles
+## Project Principles
 
-- No mass-uninstall loops or blind copy-paste package lists.
-- Treat Vivo/iQOO package roles as model-, region-, and firmware-dependent.
-- Explain risks and expected side effects before device-changing commands.
-- Record test conditions and both successful and failed results.
-- Never claim performance gains without measurement.
+- **Safety Guardrails:** Hardcoded stop-lists protect launchers, navigation gestures (`upslide`), storage pickers (`documentsui`), and security centers (`imanager`/`safecenter`).
+- **No Mass Uninstalls:** We deliberately avoid bulk-removal lists and blind copy-paste command blocks.
+- **Reversibility First:** Disable before uninstalling; test before keeping.
+- **No Unmeasured Claims:** We never promise FPS, battery, or RAM gains without baseline benchmarks.
+
+---
 
 ## License
 
