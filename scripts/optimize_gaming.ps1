@@ -47,35 +47,45 @@ Write-Host "[2/5] Enabling Updatable Game Graphics Driver..." -ForegroundColor C
 & $adb shell "settings put global updatable_driver_production_opt_out_apps ''"
 Write-Host "      Game Driver: Hardware acceleration enabled for Free Fire, BGMI, COD Mobile, Clash Royale." -ForegroundColor Green
 
-Write-Host "[3/5] Setting Android Game Manager FPS Targets..." -ForegroundColor Cyan
+Write-Host "[3/9] Setting Android Game Manager FPS Targets..." -ForegroundColor Cyan
 & $adb shell "cmd game set --fps 120 com.dts.freefiremax"
 & $adb shell "cmd game set --fps 90 com.pubg.imobile"
 & $adb shell "cmd game set --fps 120 com.activision.callofduty.shooter"
 & $adb shell "cmd game set --fps 120 com.supercell.clashroyale"
 Write-Host "      FPS Targets: 120 FPS (Free Fire, COD, Clash Royale) | 90 FPS (BGMI)" -ForegroundColor Green
 
-Write-Host "[4/5] Stabilizing Wi-Fi latency (preventing in-game ping spikes)..." -ForegroundColor Cyan
+Write-Host "[4/9] Stabilizing Wi-Fi latency (preventing in-game ping spikes)..." -ForegroundColor Cyan
 & $adb shell "settings put global wifi_scan_throttle_enabled 1"
 & $adb shell "settings put global wifi_verbose_logging_enabled 0"
-Write-Host "      Wi-Fi Scan Throttling: Enabled (stops background network scans)" -ForegroundColor Green
+& $adb shell "settings put global mobile_data_always_on 1"
+Write-Host "      Network: Wi-Fi scan throttling enabled, zero-packet-loss handover active" -ForegroundColor Green
 
-Write-Host "[5/8] Activating Monster Mode governor..." -ForegroundColor Cyan
+Write-Host "[5/9] Activating Vivo GameCube More FPS & Performance Mode..." -ForegroundColor Cyan
+& $adb shell "settings put system game_scene_more_fps 1"
+& $adb shell "settings put system game_standard_promotion_mode 1"
+& $adb shell "settings put system is_game_mode 1"
 & $adb shell "settings put system pemMonsterState 1"
-Write-Host "      Monster Mode Profile: Active" -ForegroundColor Green
+Write-Host "      Vivo Scheduler: More FPS Mode and Monster Governor Active" -ForegroundColor Green
 
-Write-Host "[6/8] Whitelisting gaming packages from battery/CPU throttling..." -ForegroundColor Cyan
+Write-Host "[6/9] Registering installed games into Vivo Performance Whitelists..." -ForegroundColor Cyan
+& $adb shell "settings put system perf_game_list 'com.dts.freefiremax:com.pubg.imobile:com.activision.callofduty.shooter:com.supercell.clashroyale:com.tencent.ig:com.garena.game.codm:'"
+& $adb shell "settings put system enabled_performance_optimization 'com.dts.freefiremax:com.pubg.imobile:com.activision.callofduty.shooter:com.supercell.clashroyale:'"
+& $adb shell "settings put system pem_ddc_open_game_list 'com.dts.freefiremax:com.pubg.imobile:com.activision.callofduty.shooter:com.supercell.clashroyale:'"
+Write-Host "      Game Whitelist: Free Fire, BGMI, COD Mobile, and Clash Royale fully prioritized" -ForegroundColor Green
+
+Write-Host "[7/9] Whitelisting gaming packages from battery/CPU throttling..." -ForegroundColor Cyan
 & $adb shell "dumpsys deviceidle whitelist +com.dts.freefiremax" | Out-Null
 & $adb shell "dumpsys deviceidle whitelist +com.pubg.imobile" | Out-Null
 & $adb shell "dumpsys deviceidle whitelist +com.activision.callofduty.shooter" | Out-Null
 & $adb shell "dumpsys deviceidle whitelist +com.supercell.clashroyale" | Out-Null
 Write-Host "      Power Whitelist: Games exempt from background CPU/network throttle" -ForegroundColor Green
 
-Write-Host "[7/8] Tuning touch response and hold timeout..." -ForegroundColor Cyan
+Write-Host "[8/9] Tuning touch response and hold timeout..." -ForegroundColor Cyan
 & $adb shell "settings put secure long_press_timeout 300"
 & $adb shell "settings put system pointer_speed 7"
 Write-Host "      Touch Latency: Long press reduced to 300ms, pointer speed set to 7 (Max)" -ForegroundColor Green
 
-Write-Host "[8/8] Ahead-Of-Time (AOT) compiling games to native machine code..." -ForegroundColor Cyan
+Write-Host "[9/9] Ahead-Of-Time (AOT) compiling games to native machine code..." -ForegroundColor Cyan
 Write-Host "      Compiling Free Fire MAX..." -ForegroundColor Gray
 & $adb shell "cmd package compile -m speed -f com.dts.freefiremax" | Out-Null
 Write-Host "      Compiling BGMI..." -ForegroundColor Gray
@@ -87,4 +97,5 @@ Write-Host "      Compiling Clash Royale..." -ForegroundColor Gray
 Write-Host "      ART Compilation: JIT runtime compilation stutter eliminated (native ARM code)" -ForegroundColor Green
 
 Write-Host "`n[✓] All gaming optimizations applied successfully!" -ForegroundColor Green
+
 

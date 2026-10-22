@@ -81,7 +81,24 @@ adb shell settings put secure long_press_timeout 300
 adb shell settings put system pointer_speed 7
 ```
 
+### 9. Vivo GameCube "More FPS" Engine & Hardware Whitelists
+Activates Funtouch OS internal high-FPS scene mode and registers installed games into Vivo's hardware scheduler prioritization lists:
+- `game_scene_more_fps = 1`
+- `game_standard_promotion_mode = 1`
+- `is_game_mode = 1`
+- `mobile_data_always_on = 1`
+```bat
+adb shell settings put system game_scene_more_fps 1
+adb shell settings put system game_standard_promotion_mode 1
+adb shell settings put system is_game_mode 1
+adb shell settings put system perf_game_list 'com.dts.freefiremax:com.pubg.imobile:com.activision.callofduty.shooter:com.supercell.clashroyale:com.tencent.ig:com.garena.game.codm:'
+adb shell settings put system enabled_performance_optimization 'com.dts.freefiremax:com.pubg.imobile:com.activision.callofduty.shooter:com.supercell.clashroyale:'
+adb shell settings put system pem_ddc_open_game_list 'com.dts.freefiremax:com.pubg.imobile:com.activision.callofduty.shooter:com.supercell.clashroyale:'
+adb shell settings put global mobile_data_always_on 1
+```
+
 ---
+
 
 
 ## One-Click Script
