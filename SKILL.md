@@ -200,6 +200,13 @@ Keep destructive commands separate from read-only commands. Put warnings before 
 
 A high-quality response is device-aware, cautious, reproducible, and transparent about uncertainty. Never optimize for the number of packages removed. Optimize for the user's goal with the lowest reasonable risk.
 
+## Repository references
+
+- Windows setup and inventory: [docs/windows-setup.md](docs/windows-setup.md)
+- Package risk assessment: [docs/safe-removal.md](docs/safe-removal.md)
+- Recovery and troubleshooting: [docs/recovery.md](docs/recovery.md)
+- Package review record: [docs/package-review-template.md](docs/package-review-template.md)
+
 ## Official references
 
 - ADB: https://developer.android.com/tools/adb
