@@ -2,14 +2,16 @@
 
 # Android ADB Debloat
 
-**A careful, device-aware skill for inspecting and removing unwanted Android apps.**
+### A safety-first Android package review skill
 
-Vivo · iQOO · Windows · Android Debug Bridge
+**Inspect. Identify. Assess risk. Confirm. Change. Verify.**
 
-[![Platform](https://img.shields.io/badge/platform-Android-3DDC84?logo=android&logoColor=white)](https://developer.android.com/tools/adb)
-[![Interface](https://img.shields.io/badge/interface-CLI%20%2F%20ADB-222222?logo=windowsterminal&logoColor=white)](https://developer.android.com/tools/releases/platform-tools)
+[![Android](https://img.shields.io/badge/Android-ADB-3DDC84?logo=android&logoColor=white)](https://developer.android.com/tools/adb)
+[![Focus](https://img.shields.io/badge/device%20focus-Vivo%20%7C%20iQOO-5267DF)](#supported-scope)
+[![Workflow](https://img.shields.io/badge/workflow-Inspect%20first-success)](#operating-principles)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Safety](https://img.shields.io/badge/default-Inspect%20First-success)](#safety-first)
+
+A reusable AI-agent skill and practical documentation set for identifying unwanted Android apps and safely guiding user-approved ADB changes.
 
 </div>
 
@@ -17,102 +19,101 @@ Vivo · iQOO · Windows · Android Debug Bridge
 
 ## Overview
 
-Android ADB Debloat is a reusable AI-agent skill and practical runbook for identifying unnecessary preinstalled Android apps, reviewing their purpose, and removing approved packages through USB debugging. It emphasizes **Vivo and iQOO devices**, but the workflow applies broadly to Android.
+Android ADB Debloat helps an AI assistant guide a user through package inventory, app identification, risk assessment, and carefully controlled removal using Android Debug Bridge over USB. The project focuses on Vivo and iQOO devices while using a workflow that can be adapted to other Android phones.
 
-The project prioritizes careful package identification, reversible user-level changes, and device-specific guidance over risky one-click debloat scripts.
+It is a **skill and documentation project**, not an automated debloating executable. It does not run commands on a phone by itself. The user remains in control of device-changing operations.
 
-> **Important:** Package names and dependencies vary across phone models, Android releases, and regional firmware. No vendor package list should be considered universally safe.
+## At a glance
 
-## What is included
+- **Inventory before action:** start with read-only ADB commands.
+- **Evidence-based identification:** don't infer an app's purpose from a package name alone.
+- **Risk classification:** distinguish likely optional apps from model-dependent and critical components.
+- **Explicit confirmation:** explain effects before recommending destructive commands.
+- **Recoverability:** document restore paths and their limitations.
+- **No blanket performance claims:** results depend on the device, firmware, and apps involved.
 
-| Path | Purpose |
+## Repository map
+
+| File | Purpose |
 |---|---|
-| [`SKILL.md`](SKILL.md) | Main agent skill: workflow, safety rules, package review, and output standards |
-| [`docs/windows-setup.md`](docs/windows-setup.md) | Windows setup, USB debugging, and read-only inventory commands |
-| [`docs/safe-removal.md`](docs/safe-removal.md) | Package classification and cautious removal procedure |
-| [`docs/recovery.md`](docs/recovery.md) | Restore commands and troubleshooting |
-| [`LICENSE`](LICENSE) | MIT license |
+| [SKILL.md](SKILL.md) | Main agent instructions, decision workflow, safety policy, and response format |
+| [docs/windows-setup.md](docs/windows-setup.md) | Windows setup, USB authorization, and read-only inventory |
+| [docs/safe-removal.md](docs/safe-removal.md) | Risk assessment and controlled package removal |
+| [docs/recovery.md](docs/recovery.md) | Restoration, troubleshooting, and stop conditions |
+| [docs/package-review-template.md](docs/package-review-template.md) | Reusable template for evaluating a package |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution and evidence standards |
+| [SECURITY.md](SECURITY.md) | Responsible reporting and safety scope |
+| [LICENSE](LICENSE) | MIT license |
 
-## Quick start
+## Quick start: Windows
 
-### 1. Install Android Platform Tools
+### 1. Install official Android Platform Tools
 
-Download the official package from Google:
+Download from Google:  
+https://developer.android.com/tools/releases/platform-tools
 
-**https://developer.android.com/tools/releases/platform-tools**
-
-Extract the ZIP and open Command Prompt inside the extracted `platform-tools` directory.
+Extract the ZIP and open Command Prompt in the extracted platform-tools directory.
 
 ### 2. Enable USB debugging
 
-On the phone, enable Developer options, turn on **USB debugging**, connect a data-capable cable, unlock the phone, and approve the computer's RSA authorization prompt.
+On the phone, enable Developer options and USB debugging. Connect a data-capable USB cable, unlock the phone, and approve the RSA authorization prompt. Only authorize a computer you trust.
 
-### 3. Confirm the device connection
+### 3. Confirm the connection
 
-```bat
+~~~bat
 adb devices
-```
+~~~
 
-Continue only when the device status is `device`. If it shows `unauthorized`, approve the prompt on the phone.
+Proceed when the device status is **device**. If it says **unauthorized**, approve the prompt on the phone.
 
-### 4. Inventory first — do not uninstall yet
+### 4. Create a read-only package inventory
 
-```bat
+~~~bat
 adb shell pm list packages > packages.txt
 adb shell pm list packages -3
 adb shell pm list packages -s
-```
+~~~
 
-The first command saves the package list to the current directory. Review package identity and purpose before making any change.
+The first command saves a package list to the current directory on your computer. The other commands list third-party and system packages.
 
-### 5. Remove one verified, approved package
+### 5. Review before removing
 
-Only after confirming exactly which app the package belongs to:
+Identify the visible app in Android Settings and assess its purpose, dependencies, and importance on the exact model and firmware. See the [safe-removal guide](docs/safe-removal.md).
 
-```bat
+Only after reviewing and approving one exact package, a user-level removal may look like:
+
+~~~bat
 adb shell pm uninstall --user 0 PACKAGE_NAME
-```
+~~~
 
-Replace `PACKAGE_NAME` with the exact package identifier. Do not paste the placeholder literally, and do not run bulk removal commands copied from another device.
+Replace **PACKAGE_NAME** with the verified identifier. Never run the placeholder literally or use an unreviewed bulk-removal script.
 
-### 6. Restore a preinstalled app if needed
+## Operating principles
 
-```bat
-adb shell cmd package install-existing --user 0 PACKAGE_NAME
-```
+1. **Read-only first.** Gather device context and package inventory before changes.
+2. **Identify with evidence.** Package names are clues, not proof.
+3. **Assess consequences.** Document confidence, risk, and affected features.
+4. **Ask before changing.** Make the exact command and effect clear.
+5. **Change one package at a time.** Verify behavior after each change.
+6. **Keep a recovery path.** A preinstalled package may sometimes be restored with the install-existing command, but this is not guaranteed.
+7. **Stop when uncertain.** Unknown vendor services and core system components are not debloat targets by default.
 
-This may restore a preinstalled package for user 0 if the package remains on the device. It does not work for every package or situation.
+## Safety notes
 
-## Safety first
+Package availability and behavior vary by phone model, region, Android release, and Funtouch OS / OriginOS version. Vendor apps that appear optional on one phone may support notifications, sharing, app updates, security tools, or other functions on another.
 
-- **Inspect before changing.** Capture package lists and identify the app in Android Settings.
-- **Remove one package at a time.** Verify phone behavior after each change.
-- **Protect critical components.** Do not casually remove telephony, Settings, System UI, launchers, package installation, permission management, biometrics, emergency functionality, Google Play services, or unknown vendor services.
-- **Treat vendor apps as model-dependent.** Components such as app stores, sharing tools, push services, and device security managers may support features you rely on.
-- **Keep recovery commands handy.** Prefer user-level uninstall over system-partition modification.
-- **Avoid performance promises.** Debloating may reduce clutter or some background activity; FPS, battery life, and stability results vary.
+Do not casually remove telephony, Settings, System UI, launcher, package installer, permission controller, biometric services, emergency functionality, Google Play services, update components, or unidentified vendor services.
 
-Read the full [safety and removal guide](docs/safe-removal.md) before removing packages.
-
-## Intended use
-
-Use this project when an AI assistant needs to:
-- Guide a user through ADB setup and connection troubleshooting.
-- Gather and interpret an Android package inventory.
-- Create a device-specific list of removal candidates with confidence and side-effect notes.
-- Explain reversible user-level uninstall and restoration.
-- Produce a clear change audit.
-
-This repository is a **skill and documentation project**, not an automatic debloating executable. Commands that modify the device should be reviewed and explicitly approved by the user.
+ADB debloating is not guaranteed to improve FPS, battery life, memory usage, or thermals. Measure results on the actual device.
 
 ## Official references
 
-- [Android Debug Bridge (ADB)](https://developer.android.com/tools/adb)
-- [SDK Platform Tools downloads](https://developer.android.com/tools/releases/platform-tools)
+- [Android Debug Bridge documentation](https://developer.android.com/tools/adb)
+- [Android SDK Platform Tools](https://developer.android.com/tools/releases/platform-tools)
 
 ## Contributing
 
-Corrections for package identifications, device versions, and troubleshooting are welcome. Please include the exact device model, Android / firmware version, observed behavior, and credible evidence. Avoid submitting universal “safe to remove” claims based only on a package name.
+Contributions should include the exact device model, Android / firmware version, package identifier, observed behavior, and credible evidence. Please read [CONTRIBUTING.md](CONTRIBUTING.md). Avoid universal “safe to remove” claims based only on a package name.
 
 ## License
 
