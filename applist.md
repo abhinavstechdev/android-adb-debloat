@@ -11,9 +11,9 @@
 
 | Category | Count | Status |
 |---|---|---|
-| **Total Packages Registered** | `530` | Total system & user packages present in firmware |
-| **Active Packages (User 0)** | `507` | Running / accessible in primary profile |
-| **User-Installed Apps (3rd-Party)** | `191` | Apps installed by user |
+| **Total Packages Registered** | `519` | Total system & user packages present in firmware |
+| **Active Packages (User 0)** | `496` | Running / accessible in primary profile |
+| **User-Installed Apps (3rd-Party)** | `180` | Apps installed by user |
 | **System & OEM Packages** | `316` | Pre-installed Vivo, Google, MediaTek, & Android packages |
 | **Debloated / Uninstalled (Tier 1)** | `23` | Safely uninstalled for User 0 via ADB |
 | **Disabled Packages** | `2` | System packages currently disabled |
@@ -32,7 +32,7 @@
 
 ## 1. User-Installed Applications (3rd-Party)
 
-Total: **191 applications** installed by the user.
+Total: **180 applications** installed by the user.
 
 | Package Name | Application Name | Category / Description |
 |---|---|---|
@@ -81,15 +81,11 @@ Total: **191 applications** installed by the user.
 | `com.devx_foxtale_app` | **Foxtale** | Productivity / Utility |
 | `com.digilocker.android` | **DigiLocker** | Government Document Wallet |
 | `com.discord` | **Discord** | Voice & Chat Gaming Communities |
-| `com.done.faasos` | **EatSure (Faasos)** | Food Ordering App |
 | `com.dream11sportsguru` | **Dream11sportsguru** | User Installed Application |
 | `com.dts.freefiremax` | **Free Fire MAX** | Battle Royale Game by Garena |
 | `com.dywx.larkplayer` | **Lark Player** | Offline Music & Video Player |
-| `com.earnkaro` | **EarnKaro** | Deal Sharing & Affiliate App |
 | `com.facebook.adsmanager` | **Adsmanager** | User Installed Application |
 | `com.facebook.katana` | **Facebook** | Social Media |
-| `com.facebook.pages.app` | **App** | User Installed Application |
-| `com.facebook.viewpoints` | **Meta Viewpoints** | Meta Research / Survey App |
 | `com.fazil.htmleditor` | **HTML Editor** | Web Development Editor |
 | `com.firsttouchgames.dls7` | **Dls7** | User Installed Application |
 | `com.flipkart.android` | **Flipkart** | E-Commerce Online Shopping |
@@ -112,7 +108,6 @@ Total: **191 applications** installed by the user.
 | `com.google.android.safetycore` | **Safetycore** | User Installed Application |
 | `com.google.android.verifier` | **Verifier** | User Installed Application |
 | `com.google.android.videos` | **Videos** | User Installed Application |
-| `com.grofers.customerapp` | **Blinkit (Grofers)** | Quick Grocery Delivery |
 | `com.hassaneltantawy.sqliteviewer` | **SQLite Viewer** | Database Inspection Tool |
 | `com.iexceed.appzillon.ippbMB` | **IPPB Mobile Banking** | India Post Payments Bank |
 | `com.instagram.android` | **Android** | User Installed Application |
@@ -121,7 +116,6 @@ Total: **191 applications** installed by the user.
 | `com.integromat.android` | **Android** | User Installed Application |
 | `com.iproyal.android` | **IPRoyal Pawns** | Passive Income / Bandwidth Share |
 | `com.jio.myjio` | **Myjio** | User Installed Application |
-| `com.king.candycrushsaga` | **Candy Crush Saga** | Match-3 Puzzle Game by King |
 | `com.kiwibrowser.browser` | **Browser** | User Installed Application |
 | `com.kvassyu.coding.py` | **Coding Python** | Python Learning & Coding Tool |
 | `com.magicpin.local` | **magicpin** | Local Savings & Rewards |
@@ -135,7 +129,6 @@ Total: **191 applications** installed by the user.
 | `com.motorola.mobiledesktop` | **Ready For / Mobile Desktop** | Desktop Mode Bridge |
 | `com.motorola.motobuds` | **Moto Buds** | Earbuds Companion App |
 | `com.myairtelapp` | **Airtel Thanks** | Telecom & Utility Recharges |
-| `com.nebula.mahjongtile` | **Mahjongtile** | User Installed Application |
 | `com.openai.chatgpt` | **ChatGPT** | AI Assistant by OpenAI |
 | `com.opera.browser` | **Opera Browser** | Web Browser with VPN |
 | `com.opera.gx` | **Gx** | User Installed Application |
@@ -175,10 +168,7 @@ Total: **191 applications** installed by the user.
 | `com.valvesoftware.android.steam.community` | **Steam Mobile** | Valve Steam Community App |
 | `com.venter.hopweb` | **HopWeb** | HTML/CSS/JS IDE |
 | `com.vidiq.app` | **vidIQ** | YouTube SEO & Analytics Tool |
-| `com.vitastudio.mahjong` | **Vita Mahjong** | Tile Matching Game |
-| `com.wallapers.sillysmiles.live.wallpaper` | **Wallpaper** | User Installed Application |
 | `com.wallet.crypto.trustapp` | **Trustapp** | User Installed Application |
-| `com.wallpaperscraft.wallpaper` | **Wallcraft** | HD Wallpapers |
 | `com.whatsapp` | **WhatsApp** | Instant Messaging by Meta |
 | `com.whereismytrain.android` | **Where is my Train** | Live Train Status & Offline Schedules |
 | `com.whop.whopapp` | **Whop** | Creator Marketplace & Community |
@@ -187,7 +177,6 @@ Total: **191 applications** installed by the user.
 | `com.xiaoji.egggame` | **Egg NS Emulator** | Console Game Emulator |
 | `com.yablio.sendfilestotv` | **Send Files to TV** | Local Network File Transfer |
 | `com.ytheekshana.deviceinfo` | **Device Info** | Hardware & System Diagnostics |
-| `com.zeptoconsumerapp` | **Zepto** | 10-Minute Grocery Delivery |
 | `ellipi.messenger` | **Element / Ellipi** | Matrix Decentralized Chat |
 | `free.vpn.unblock.proxy.turbovpn` | **Turbo VPN** | Free Proxy & VPN |
 | `hub.browser.video.downloader.saver` | **Video Downloader Hub** | Media Saver & Downloader |

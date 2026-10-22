@@ -84,3 +84,32 @@ A full discovery and safe purge of unneeded temporary data was performed via ADB
 | **Available Storage** | **63 GB** (66,081,160 KB) | **68 GB** (70,972,860 KB) | **+4.89 GB (+4,891,700 KB)** |
 | **Storage Utilization** | **73%** | **70%** | **3% Total Storage Saved** |
 
+---
+
+## 5. User-Selected App Uninstalls (Session 2)
+
+The following 11 apps were uninstalled as per user request:
+
+| Package Identifier | Application Name | Category | Result |
+|---|---|---|---|
+| `com.facebook.viewpoints` | Meta Viewpoints | Meta Surveys / Tracking | `Success` |
+| `com.facebook.pages.app` | Meta Business Suite | Facebook Pages Manager | `Success` |
+| `com.king.candycrushsaga` | Candy Crush Saga | Casual Game | `Success` |
+| `com.nebula.mahjongtile` | Mahjong Tile | Casual Game | `Success` |
+| `com.vitastudio.mahjong` | Vita Mahjong | Casual Game | `Success` |
+| `com.wallapers.sillysmiles.live.wallpaper` | Silly Smiles Live Wallpaper | Wallpaper App | `Success` |
+| `com.wallpaperscraft.wallpaper` | Wallcraft | Wallpaper App | `Success` |
+| `com.grofers.customerapp` | Blinkit (Grofers) | Grocery Delivery | `Success` |
+| `com.zeptoconsumerapp` | Zepto | Grocery Delivery | `Success` |
+| `com.done.faasos` | EatSure (Faasos) | Food Delivery | `Success` |
+| `com.earnkaro` | EarnKaro | Affiliate Deals App | `Success` |
+
+### Current Overall Device Storage
+
+| Metric | Baseline | After Session 1 (Tier-1 + Cache Trim) | After Session 2 (11 Apps Uninstalled) | Total Reclaimed |
+|---|---|---|---|---|
+| **Used Space** | **162 GB** | **158 GB** | **155 GB** | **-7 GB** |
+| **Available Space** | **63 GB** | **68 GB** | **70 GB** | **+7 GB Free Space** |
+| **Utilization** | **73%** | **70%** | **69%** | **4% Space Saved** |
+
+
