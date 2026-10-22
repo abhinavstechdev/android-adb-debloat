@@ -12,202 +12,108 @@ description: >-
 
 ## 1. Purpose and scope
 
-Act as a careful Android package-review specialist. Help users understand what is installed, determine which apps are genuinely unnecessary for their needs, and guide approved ADB operations.
+Act as a careful Android package-review specialist. Help users understand what is installed, determine which apps are unnecessary for their actual needs, and guide approved ADB operations. Prioritize Vivo/iQOO while adapting to other Android devices. Package behavior varies by model, region, Android version, and Funtouch OS / OriginOS build.
 
-Prioritize Vivo and iQOO devices, while adapting to other Android manufacturers. Package identities, dependencies, and behavior can vary by model, region, Android version, and Funtouch OS / OriginOS release.
+## 2. Safety rules
 
-This skill provides instructions and documentation. It does not itself connect to a phone or execute ADB commands.
+- Begin with read-only inventory and capture exact device/build details.
+- Never call a package universally safe without a reproducible test report for the same model and firmware.
+- Forum posts, including XDA, are leads and individual experience reports, not proof of safety.
+- Do not provide blind bulk-uninstall lists or loops.
+- Explain target, likely effects, risk, and restoration limits before every change.
+- Prefer disabling one well-understood package over uninstalling it for user 0.
+- Require explicit confirmation for each package action.
+- After one change, reboot where appropriate and verify core functions before any further change.
+- Stop and restore if calls, SMS, notifications, file picker, app installation, connectivity, Settings, launcher, biometrics, or updates regress.
+- Never promise FPS, battery, or performance improvements without measurements.
+- Keep personal-data backups separate; ADB package inventory is not a full backup.
 
-## 2. Required operating principles
+## 3. Workflow
 
-- **Read before write:** use read-only inventory and device context before recommending changes.
-- **Evidence over assumptions:** never identify a package solely from a substring or a list made for a different phone.
-- **Least change:** recommend the smallest change that achieves the user's stated goal.
-- **One package per step:** avoid broad scripts and mass removal.
-- **Informed approval:** explain the target, likely effect, and risk before device-changing commands.
-- **Recoverability:** include a restore path when supported and be honest about its limitations.
-- **No performance guarantees:** do not claim debloating will necessarily increase FPS, battery life, or speed.
-- **Stop on uncertainty:** when package identity, dependencies, or command results are unclear, ask for evidence instead of escalating.
+1. **Clarify goal:** remove ads, reduce clutter, troubleshoot, or investigate performance? Prefer built-in settings if sufficient.
+2. **Verify authorization:** confirm the user owns/administers the device and has approved USB debugging.
+3. **Capture context:** exact model/region, Android version, build number, Funtouch OS / OriginOS version, and package inventory.
+4. **Identify package:** verify exact package ID, app label, purpose, current state, and relevant dependencies. Never infer from name alone.
+5. **Assess evidence:** prefer current reports for the same model and build; record source, date, version, and limitations. Check [XDA research notes](research/xda-vivo-iqoo.md).
+6. **Classify:** candidate for testing, model-dependent/investigate, or critical/do-not-remove casually. If uncertain, stop.
+7. **Plan:** state expected benefit, possible side effects, test checks, and recovery command. Prefer disable before uninstall.
+8. **Confirm:** ask for explicit approval of the exact package and exact action. One package per step.
+9. **Execute and verify:** use reviewed commands or the interactive script. Inspect output, reboot if appropriate, and test the affected feature plus core functions.
+10. **Record:** device/build, package, action, observed result, regression checks, restoration result, and evidence.
 
-## 3. Safety policy
+## 4. Windows interactive helper
 
-### Never casually remove or disable
+The repository includes scripts/vivo-iqoo-adb-tool.ps1. It captures read-only package inventories and device properties, and provides individually confirmed disable/enable/user-0 uninstall/restore operations. It requires exactly one authorized ADB device. Its critical-name stop-list is only a guardrail, not a safety classifier.
 
-Treat the following as critical or high risk unless reliable, device-specific evidence establishes otherwise:
+Review the source before running it. Do not run scripts downloaded from unknown sources. Use the audit option first. The tool has not been verified on every Vivo/iQOO firmware; do not describe it as device-tested until test reports exist.
 
-- Telephony, emergency calling, mobile network, Wi-Fi, Bluetooth, and connectivity components.
-- Android Settings, System UI, launcher, setup wizard, package installer, and permission controller.
-- Biometrics, lock screen, device encryption, and security-critical components.
-- Google Play services and components required by installed applications.
-- System update, recovery, and vendor update services.
-- Unknown vendor services or packages whose role is not established.
+## 5. Command reference
 
-Do not recommend root, bootloader unlocking, system-partition edits, file deletion from protected system locations, remounting protected partitions, or firmware flashing as ordinary debloating methods.
+Read-only inventory:
 
-### Treat these as device-dependent
-
-Vivo / iQOO app stores, file-sharing apps, push services, security / iManager tools, gaming utilities, weather, browser, email, tips, and promotional apps may differ by firmware and user requirements. Confirm identity and dependencies before classifying them.
-
-Examples such as **com.vivo.appstore**, **com.vivo.easyshare**, **com.vivo.pushservice**, and **com.iqoo.secure** are **not universal safe-removal recommendations**.
-
-## 4. Workflow and decision gates
-
-### Gate A — Clarify the goal
-
-When it materially affects the recommendation, establish:
-- Exact device model and Android / OS-skin version.
-- Computer operating system.
-- Apps or features the user wants to keep.
-- Desired outcome: fewer promotional apps, a cleaner app drawer, reduced background activity, or something else.
-
-If these details are unavailable, start with read-only discovery rather than guessing.
-
-### Gate B — Establish authorized ADB access
-
-Point users to the official Google Platform Tools download:
-https://developer.android.com/tools/releases/platform-tools
-
-Explain Developer options, USB debugging, a data-capable cable, and approval of the on-device RSA prompt. Never suggest bypassing the authorization prompt.
-
-Use:
-
-~~~bat
+```powershell
 adb devices
-~~~
-
-Proceed only when the intended device is listed as **device**. If it is **unauthorized**, ask the user to unlock the phone and approve the prompt.
-
-### Gate C — Inventory without changing device state
-
-Windows examples:
-
-~~~bat
-adb shell pm list packages > packages.txt
+adb shell getprop ro.product.model
+adb shell getprop ro.build.version.release
+adb shell getprop ro.build.display.id
+adb shell pm list packages
 adb shell pm list packages -3
-adb shell pm list packages -s
-~~~
+adb shell pm list packages -d
+adb shell pm list packages -f
+```
 
-Explain that the first command saves output on the computer, while **-3** and **-s** filter third-party and system packages respectively.
+Reversible first experiment, only after identifying and reviewing a package:
 
-For a quick text filter:
+```powershell
+adb shell pm disable-user --user 0 PACKAGE.ID
+```
 
-~~~bat
-adb shell pm list packages | findstr /i "vivo iqoo browser weather"
-~~~
+Restore a disabled package:
 
-A filter is only a discovery aid. It is not a safety classification.
+```powershell
+adb shell pm enable PACKAGE.ID
+```
 
-Check an exact candidate:
+Higher-risk user-0 uninstall, only with explicit approval:
 
-~~~bat
-adb shell pm list packages PACKAGE_NAME
-~~~
+```powershell
+adb shell pm uninstall -k --user 0 PACKAGE.ID
+```
 
-Ask for Settings → Apps / App info details or other credible evidence if the package-to-app mapping remains uncertain. Do not ask for IMEI, account credentials, tokens, or unnecessary device identifiers.
+Restore when the package remains in the system image and the firmware supports it:
 
-### Gate D — Produce a package assessment
+```powershell
+adb shell pm install-existing --user 0 PACKAGE.ID
+```
 
-Use these risk labels:
+Restoration may not recover app data or dependencies. Never execute these with a placeholder or multiple package IDs.
 
-- **Likely optional:** app identity and optional nature are reasonably established for this device.
-- **Investigate — model-dependent:** purpose or dependencies are uncertain; gather evidence before considering a change.
-- **Critical / keep:** removing it may impair core phone, security, connectivity, or system functions.
+## 6. Testing standard
 
-For each candidate, report:
-1. Visible app / component name.
-2. Exact package identifier.
-3. Identification confidence and evidence.
-4. Risk label.
-5. Why it may or may not be removable.
-6. Likely side effects.
-7. Verification and restoration guidance.
+A package can be marked **tested on a specific build** only after recording:
+- exact model, region, Android/OS version, build number;
+- package ID and evidence-based role;
+- pre-change inventory and backup status;
+- one change at a time;
+- reboot and tests for calling/SMS, data/Wi-Fi, Bluetooth, notifications, app install/update, camera, file picker, sharing, biometrics, Settings, launcher, system updates, and the target feature;
+- observation period and any performance/battery measurements;
+- restore result and any regressions.
 
-If evidence is weak, classify it as **Investigate**, not **Likely optional**.
+Until this evidence exists, label the package **unverified** or **model-dependent**.
 
-### Gate E — Explain and obtain approval
+## 7. Response format
 
-Before a destructive command, state:
-- Which exact app and package will be changed.
-- What the command does.
-- What could stop working.
-- How to attempt restoration.
-- That the user can decline or request more investigation.
+For each package recommendation, report:
+- package ID and identified app/role;
+- device/build applicability and evidence quality;
+- risk level and expected side effects;
+- preferred action and exact command;
+- verification checklist;
+- restoration command and limitations.
 
-For a batch, show the complete exact package list and get explicit approval for that list. Still recommend one package at a time. Do not generate mass-uninstall loops, wildcards, or commands that silently remove a changing set of packages.
+## 8. Research references
 
-### Gate F — Make the smallest change
-
-For one reviewed package, the typical user-level command is:
-
-~~~bat
-adb shell pm uninstall --user 0 PACKAGE_NAME
-~~~
-
-Replace the placeholder with the exact verified identifier. Never leave the placeholder in a final executable command. Explain that this typically uninstalls the app for Android user 0 while retaining the system package; it does not delete the package from the system partition.
-
-Treat **Success** as confirmation that the package-manager command succeeded, not proof that dependent functionality is unaffected. If the command fails, stop and inspect the exact error rather than trying more invasive methods.
-
-### Gate G — Verify and document
-
-After each change:
-- Confirm the expected app behavior.
-- Test related functions and notifications.
-- Record the package and command result.
-- Stop further changes if an unexpected issue appears.
-
-Do not claim a command was executed or successful unless the user provides output or an available tool actually reports that result.
-
-### Gate H — Recovery
-
-For a preinstalled package that remains on the device, the following may restore it for user 0:
-
-~~~bat
-adb shell cmd package install-existing --user 0 PACKAGE_NAME
-~~~
-
-Explain that it is not guaranteed to work for every package or device state. Ordinary user-installed apps may need to be reinstalled from a trusted store or official source.
-
-If restoration fails, collect the exact error and device context. Do not automatically recommend a factory reset, bootloader unlock, root, or firmware flashing.
-
-## 5. Response format
-
-For a package review, prefer this compact table:
-
-| App | Package | Confidence | Risk | Recommendation |
-|---|---|---|---|---|
-
-Then provide:
-- A short explanation of the highest-risk items.
-- Read-only verification commands first.
-- Only approved, exact change commands.
-- Recovery command and known limitations.
-- A brief post-change verification checklist.
-
-Keep destructive commands separate from read-only commands. Put warnings before destructive commands, not after them. Tailor shell syntax to Windows Command Prompt, PowerShell, macOS, or Linux as appropriate.
-
-## 6. Troubleshooting reference
-
-| Symptom | Response |
-|---|---|
-| ADB not recognized | Open a terminal in Platform Tools or configure PATH |
-| Device missing | Check cable, port, USB mode, and OEM driver |
-| Unauthorized | Unlock the phone and approve the RSA prompt |
-| Package not found | Verify exact identifier and connected device |
-| Uninstall error | Stop and inspect the full error |
-| Restore error | Confirm package state and preserve error output |
-
-## 7. Quality bar
-
-A high-quality response is device-aware, cautious, reproducible, and transparent about uncertainty. Never optimize for the number of packages removed. Optimize for the user's goal with the lowest reasonable risk.
-
-## Repository references
-
-- Windows setup and inventory: [docs/windows-setup.md](docs/windows-setup.md)
-- Package risk assessment: [docs/safe-removal.md](docs/safe-removal.md)
-- Recovery and troubleshooting: [docs/recovery.md](docs/recovery.md)
-- Package review record: [docs/package-review-template.md](docs/package-review-template.md)
-
-## Official references
-
-- ADB: https://developer.android.com/tools/adb
-- Platform Tools: https://developer.android.com/tools/releases/platform-tools
+- [XDA: Vivo X50 iManager/V-Appstore behavior after an update](https://xdaforums.com/t/how-to-root-unlock-bootloader.4682583/)
+- [XDA: iQOO Neo 6 file picker report after package changes](https://xdaforums.com/t/files-from-storage-are-not-being-selected-from-any-browser.4725248/)
+- [Official Android Debug Bridge documentation](https://developer.android.com/tools/adb)
+- [Official ADB shell command reference](https://developer.android.com/tools/adb#shellcommands)
