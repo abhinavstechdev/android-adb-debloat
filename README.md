@@ -43,6 +43,7 @@ Restore attempts use `pm enable PACKAGE.ID` or `pm install-existing --user 0 PAC
 - [Recovery and troubleshooting](docs/recovery.md)
 - [Package review template](docs/package-review-template.md)
 - [XDA / Vivo-iQOO research notes](research/xda-vivo-iqoo.md)
+- [Device test protocol and current validation status](docs/test-protocol.md)
 - [Agent skill](SKILL.md)
 
 ## Project principles
