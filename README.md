@@ -7,7 +7,7 @@
 **Inspect. Identify. Assess risk. Confirm. Change. Verify.**
 
 [![Android](https://img.shields.io/badge/Android-ADB-3DDC84?logo=android&logoColor=white)](https://developer.android.com/tools/adb)
-[![Focus](https://img.shields.io/badge/device%20focus-Vivo%20%7C%20iQOO-5267DF)](#supported-scope)
+[![Focus](https://img.shields.io/badge/device%20focus-Vivo%20%7C%20iQOO-5267DF)](#overview)
 [![Workflow](https://img.shields.io/badge/workflow-Inspect%20first-success)](#operating-principles)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
