@@ -48,6 +48,8 @@ A safety-first ADB package review toolkit and AI agent skill focused on **Vivo a
 
 ## Documentation Index
 
+- [Comprehensive Gaming & High Refresh Rate Optimization Guide](docs/gaming-optimization.md)
+- [Complete Device Application Inventory (applist.md)](applist.md)
 - [Safe Package Evaluation & Removal Guide](docs/safe-removal.md)
 - [Recovery & Troubleshooting Guide](docs/recovery.md)
 - [XDA Research Notes & Analysis](research/xda-vivo-iqoo.md)
@@ -57,6 +59,22 @@ A safety-first ADB package review toolkit and AI agent skill focused on **Vivo a
 - [Agent Skill Guide](SKILL.md)
 
 ---
+
+## Gaming & Performance Optimization Tool
+
+To apply all 10 deep gaming optimizations (120Hz lock, DisplayManager unclamp, Game Driver, Vivo GameCube More FPS, AOT machine compilation, power whitelist, touch & ping stabilization):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/optimize_gaming.ps1
+```
+
+To revert to stock defaults:
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/optimize_gaming.ps1 -Reset
+```
+
+---
+
 
 ## Project Principles
 

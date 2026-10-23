@@ -1,0 +1,116 @@
+=== NAMESPACE: activity_manager ===
+bg_current_drain_auto_restrict_abusive_apps_enabled=false
+bg_prompt_fgs_on_long_running=false
+max_phantom_processes=2147483647
+push_messaging_over_quota_behavior=1
+
+=== NAMESPACE: activity_manager_native_boot ===
+modern_queue_enabled=true
+
+=== NAMESPACE: connectivity ===
+data_stall_consecutive_dns_timeout_threshold=5
+dhcp_init_reboot_enabled=false
+dhcp_init_reboot_version=0
+dhcp_ip_conflict_detect_version=0
+dhcp_rapid_commit_enabled=false
+dhcp_rapid_commit_version=1
+dhcp_restart_configuration_delay=1000
+dhcp_server_decline_version=0
+ipclient_accept_ipv6_link_local_dns_version=0
+ipclient_multicast_ns_version=0
+
+=== NAMESPACE: connectivity_thermal_power_manager ===
+apply_action_time_seconds=10
+criteria_1_enabled=true
+criteria_4_lte_pref_mode=3
+wifi_disconnected_time_seconds=180
+wifi_internet_driven_endc_product_carrier_id_set=panther,panther_beta,cheetah,cheetah_beta,lynx,lynx_beta,felix,felix_beta,shiba,shiba_beta,husky,husky_beta,akita,akita_beta,komodo,komodo_beta,tokay,tokay_beta,caiman,caiman_beta,comet,comet_beta,tegu,tegu_beta,frankel,frankel_beta,blazer,blazer_beta,mustang,mustang_beta,rango,rango_beta,stallion,stallion_beta@1,1989,2023,2576,2067,2071,2073,2577,2522,2075,2578,2083,2433,1949,2018
+
+=== NAMESPACE: constrain_display_apis ===
+always_constrain_display_apis=
+never_constrain_display_apis=
+never_constrain_display_apis_all_packages=false
+
+=== NAMESPACE: display_manager ===
+HdrOutputControl__enable_hdr_output_control=true
+com.android.internal.foldables.flags.fold_grace_period_enabled=true
+com.android.internal.foldables.flags.fold_lock_setting_enabled=true
+com.android.server.display.feature.flags.always_rotate_display_device=true
+com.android.server.display.feature.flags.auto_brightness_modes=true
+com.android.server.display.feature.flags.back_up_smooth_display_and_force_peak_refresh_rate=true
+com.android.server.display.feature.flags.brightness_int_range_user_perception=false
+com.android.server.display.feature.flags.brightness_wear_bedtime_mode_clamper=true
+com.android.server.display.feature.flags.enable_adaptive_tone_improvements_1=true
+com.android.server.display.feature.flags.enable_adaptive_tone_improvements_2=true
+com.android.server.display.feature.flags.enable_connected_display_error_handling=true
+com.android.server.display.feature.flags.enable_connected_display_management=true
+com.android.server.display.feature.flags.enable_display_offload=true
+com.android.server.display.feature.flags.enable_display_resolution_range_voting=false
+com.android.server.display.feature.flags.enable_displays_refresh_rates_synchronization=false
+com.android.server.display.feature.flags.enable_hdr_clamper=true
+com.android.server.display.feature.flags.enable_mode_limit_for_external_display=true
+com.android.server.display.feature.flags.enable_nbm_controller=true
+com.android.server.display.feature.flags.enable_peak_refresh_rate_physical_limit=true
+com.android.server.display.feature.flags.enable_pixel_anisotropy_correction=true
+com.android.server.display.feature.flags.enable_port_in_display_layout=true
+com.android.server.display.feature.flags.enable_power_throttling_clamper=true
+com.android.server.display.feature.flags.enable_restrict_display_modes=true
+com.android.server.display.feature.flags.enable_synthetic_60hz_modes=false
+com.android.server.display.feature.flags.enable_user_preferred_mode_vote=false
+com.android.server.display.feature.flags.enable_vsync_low_light_vote=true
+com.android.server.display.feature.flags.enable_vsync_low_power_vote=true
+com.android.server.display.feature.flags.even_dimmer=false
+com.android.server.display.feature.flags.fast_hdr_transitions=true
+com.android.server.display.feature.flags.idle_screen_refresh_rate_timeout=true
+com.android.server.display.feature.flags.ignore_app_preferred_refresh_rate_request=true
+com.android.server.display.feature.flags.offload_controls_doze_auto_brightness=false
+com.android.server.display.feature.flags.offload_doze_override_holds_wakelock=false
+com.android.server.display.feature.flags.refactor_display_power_controller=false
+com.android.server.display.feature.flags.refresh_rate_voting_telemetry=true
+com.android.server.display.feature.flags.resolution_backup_restore=true
+com.android.server.display.feature.flags.sensor_based_brightness_throttling=true
+com.android.server.display.feature.flags.use_fusion_prox_sensor=false
+
+=== NAMESPACE: netd_native ===
+dns_event_subsample_map=default:6 0:400 2:110 4:110 7:110
+doh=1
+dot_connect_timeout_ms=30000
+dot_query_timeout_ms=-1
+dot_revalidation_threshold=-1
+dot_validation_latency_factor=3
+dot_validation_latency_offset_ms=100
+dot_xport_unusable_threshold=-1
+keep_listening_udp=1
+max_cache_entries=640
+max_queries_global=2500
+no_retry_after_cancel=0
+parallel_lookup=0
+retransmission_time_interval=3000
+retry_count=2
+sort_nameservers=0
+
+=== NAMESPACE: runtime ===
+force_disable_pr_dexopt=false
+
+=== NAMESPACE: runtime_native ===
+metrics.reporting-mods=2
+metrics.reporting-mods-server=2
+metrics.reporting-num-mods=100
+metrics.reporting-num-mods-server=100
+metrics.reporting-spec=1,5,30,60,600
+metrics.reporting-spec-server=1,10,60,3600,*
+metrics.write-to-statsd=true
+use_app_image_startup_cache=true
+
+=== NAMESPACE: runtime_native_boot ===
+disable_lock_profiling=false
+force_disable_uffd_gc=false
+iorap_blacklisted_packages=
+iorap_perfetto_enable=false
+iorap_readahead_enable=false
+iorapd_options=
+use_generational_gc=true
+
+=== NAMESPACE: surface_flinger_native_boot ===
+SkiaTracingFeature__use_skia_tracing=false
+
