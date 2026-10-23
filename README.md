@@ -49,6 +49,7 @@ A safety-first ADB package review toolkit and AI agent skill focused on **Vivo a
 ## Documentation Index
 
 - [Comprehensive Gaming & High Refresh Rate Optimization Guide](docs/gaming-optimization.md)
+- [Gaming Settings & Tools Evaluation Matrix (Helpful vs. Harmful)](docs/gaming-settings-and-tools-audit.md)
 - [Complete Device Application Inventory (applist.md)](applist.md)
 - [Safe Package Evaluation & Removal Guide](docs/safe-removal.md)
 - [Recovery & Troubleshooting Guide](docs/recovery.md)
