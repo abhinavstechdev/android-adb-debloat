@@ -180,11 +180,18 @@ adb shell settings put global mobile_data_always_on 1
 | **Runtime** | ART Compilation Filter | JIT / Profile | `speed` (AOT) | Zero JIT compiler thread stutter |
 | **Power** | `dumpsys deviceidle whitelist` | Not Listed | Whitelisted | Exempt from OS background throttling |
 | **Power** | `max_phantom_processes` | 32 | `2147483647` | Voice chat & overlays never killed |
+| **Memory** | `zram_enabled` | `1` | `0` | Disables flash memory swapping micro-stutters |
 | **Touch** | `long_press_timeout` | `400ms` | `300ms` | 25% faster touch-hold recognition |
 | **Touch** | `pointer_speed` | `0` | `7` (Max) | Maximum aim and swipe responsiveness |
 | **Network** | `wifi_scan_always_enabled` | `1` | `0` | Eliminates periodic ping spikes |
 | **Network** | `wifi_scan_throttle_enabled` | `0` | `1` | Prevents background radio interruptions |
+| **Network** | `wifi_wakeup_enabled` | `1` | `0` | Disables background Wi-Fi geofence wakeups |
+| **Network** | `wifi_power_save` | `120` | `0` | Disables radio power sleep packet queuing |
+| **Network** | `ble_scan_always_enabled` | `1` | `0` | Eliminates 2.4GHz Bluetooth beacon interference |
+| **Network** | `tcp_default_init_rwnd` | `null` | `60` | Expands initial TCP window for faster socket transfer |
 | **Network** | `mobile_data_always_on` | `0` | `1` | Zero packet-loss network handover |
+| **DNS** | `private_dns_specifier` | `adguard` | `one.one.one.one` | Lowest roundtrip latency for matchmaking |
+| **Game Overlay** | `device_config game_overlay` | Default | Mode 2/3 (120/90 FPS) | Direct OS-level game engine framerate injection |
 
 ---
 

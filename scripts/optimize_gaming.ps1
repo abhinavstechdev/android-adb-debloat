@@ -64,12 +64,16 @@ Write-Host "[4/10] Enabling Vivo Hawkeye Visual Mode and Vivid Color Gamut..." -
 Write-Host "       Visuals: Hawkeye detail enhancement active, DCI-P3 wide gamut active" -ForegroundColor Green
 
 Write-Host "`n--- PILLAR 3: VIVO GAMECUBE AND KERNEL SCHEDULING ---" -ForegroundColor Yellow
-Write-Host "[5/10] Overriding Android Game Manager FPS Targets..." -ForegroundColor Cyan
+Write-Host "[5/10] Overriding Android Game Manager FPS Targets and Native Overlays..." -ForegroundColor Cyan
 & $adb shell "cmd game set --fps 120 com.dts.freefiremax"
 & $adb shell "cmd game set --fps 90 com.pubg.imobile"
 & $adb shell "cmd game set --fps 120 com.activision.callofduty.shooter"
 & $adb shell "cmd game set --fps 120 com.supercell.clashroyale"
-Write-Host "       FPS Targets: 120 FPS (Free Fire, COD, Clash Royale), 90 FPS (BGMI)" -ForegroundColor Green
+& $adb shell "/system/bin/device_config put game_overlay com.dts.freefiremax mode=2,fps=120:mode=3,fps=120"
+& $adb shell "/system/bin/device_config put game_overlay com.pubg.imobile mode=2,fps=90:mode=3,fps=90"
+& $adb shell "/system/bin/device_config put game_overlay com.activision.callofduty.shooter mode=2,fps=120:mode=3,fps=120"
+& $adb shell "/system/bin/device_config put game_overlay com.supercell.clashroyale mode=2,fps=120:mode=3,fps=120"
+Write-Host "       FPS Targets: 120 FPS (Free Fire, COD, Clash Royale), 90 FPS (BGMI) in Game Manager and DeviceConfig" -ForegroundColor Green
 
 Write-Host "[6/10] Activating Vivo GameCube More FPS, Promotion Mode and Monster Governor..." -ForegroundColor Cyan
 & $adb shell "settings put system game_scene_more_fps 1"
@@ -113,13 +117,17 @@ Write-Host "[10/10] Optimizing touch latency and eradicating Wi-Fi ping spikes..
 & $adb shell "settings put global wifi_scan_always_enabled 0"
 & $adb shell "settings put global wifi_scan_throttle_enabled 1"
 & $adb shell "settings put global wifi_verbose_logging_enabled 0"
+& $adb shell "settings put global wifi_wakeup_enabled 0"
 & $adb shell "settings put global wifi_power_save 0"
+& $adb shell "settings put global ble_scan_always_enabled 0"
+& $adb shell "settings put global tcp_default_init_rwnd 60"
 & $adb shell "settings put global mobile_data_always_on 1"
 & $adb shell "settings put global private_dns_mode hostname"
 & $adb shell "settings put global private_dns_specifier one.one.one.one"
 & $adb shell "logcat -c"
-Write-Host "       Touch and Network: Hold delay 300ms, pointer max, Wi-Fi sleep killed, Cloudflare 1.1.1.1 Gaming DNS active" -ForegroundColor Green
+Write-Host "       Touch and Network: Hold delay 300ms, pointer max, Bluetooth/Wi-Fi background scans killed, TCP window 60, Cloudflare 1.1.1.1 Gaming DNS active" -ForegroundColor Green
 
 Write-Host "`n==========================================================" -ForegroundColor Green
 Write-Host "  [OK] All 10 Deep Gaming Optimization Steps Applied!     " -ForegroundColor Green
 Write-Host "==========================================================" -ForegroundColor Green
+
