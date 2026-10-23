@@ -99,7 +99,8 @@ Write-Host "[8/10] Exempting games from DeviceIdle power and background throttli
 & $adb shell "dumpsys deviceidle whitelist +com.activision.callofduty.shooter" | Out-Null
 & $adb shell "dumpsys deviceidle whitelist +com.supercell.clashroyale" | Out-Null
 & $adb shell "/system/bin/device_config put activity_manager max_phantom_processes 2147483647 2>/dev/null"
-Write-Host "       Power Optimization: Games exempt from battery throttling; phantom process killer disabled" -ForegroundColor Green
+& $adb shell "settings put global zram_enabled 0"
+Write-Host "       Power Optimization: Games exempt from battery throttling; ZRAM flash swap disabled" -ForegroundColor Green
 
 Write-Host "[9/10] Ahead-Of-Time (AOT) compiling games to native ARM machine code..." -ForegroundColor Cyan
 Write-Host "       Compiling Free Fire MAX..." -ForegroundColor Gray
@@ -119,9 +120,14 @@ Write-Host "[10/10] Optimizing touch latency & eradicating Wi-Fi ping spikes..."
 & $adb shell "settings put global wifi_scan_always_enabled 0"
 & $adb shell "settings put global wifi_scan_throttle_enabled 1"
 & $adb shell "settings put global wifi_verbose_logging_enabled 0"
+& $adb shell "settings put global wifi_power_save 0"
 & $adb shell "settings put global mobile_data_always_on 1"
-Write-Host "       Touch & Network: Hold delay 300ms, pointer max, background scans killed, zero-drop handover" -ForegroundColor Green
+& $adb shell "settings put global private_dns_mode hostname"
+& $adb shell "settings put global private_dns_specifier one.one.one.one"
+& $adb shell "logcat -c"
+Write-Host "       Touch & Network: Hold delay 300ms, pointer max, Wi-Fi sleep killed, Cloudflare 1.1.1.1 Gaming DNS active" -ForegroundColor Green
 
 Write-Host "`n==========================================================" -ForegroundColor Green
 Write-Host "  [✓] All 10 Deep Gaming Optimization Steps Applied!      " -ForegroundColor Green
 Write-Host "==========================================================" -ForegroundColor Green
+
