@@ -92,15 +92,20 @@ adb shell cmd game set --fps 120 com.activision.callofduty.shooter
 adb shell cmd game set --fps 120 com.supercell.clashroyale
 ```
 
-### 6. Vivo GameCube "More FPS" Engine & Standard Promotion Mode
-* **The Problem:** Funtouch OS contains internal scene acceleration flags (`game_scene_more_fps` and `game_standard_promotion_mode`) that are disabled (`0`) on stock firmware.
-* **The Tweak:** Enable Vivo's in-engine framerate booster, promotion governor, and GameWatch VCS (Vivo Cooling System / Frame Rate Stabilization):
+### 6. Vivo GameCube "More FPS" Engine, GameWatch 120 FPS & Super Solution
+* **The Problem:** Funtouch OS contains proprietary gaming acceleration engines (`gamewatch_game_target_fps`, `sdk_game_target_fps`, `key_gamewatch_eco_super_solution`, and `key_gamewatch_eco_frame_inter`) that were either unassigned (`-1`), capped at 90 FPS, or empty.
+* **The Tweak:** Force Vivo GameWatch hardware targets to 120 FPS, register proprietary SDK framerate targets for all games, and enable Super Resolution upscaling (VSR) and MEMC frame interpolation:
 ```bat
 adb shell settings put system game_scene_more_fps 1
 adb shell settings put system game_standard_promotion_mode 1
 adb shell settings put system is_game_mode 1
 adb shell settings put system pemMonsterState 1
 adb shell settings put secure gamewatch_vcs_mode 1
+adb shell settings put system gamewatch_game_target_fps 120
+adb shell settings put system sdk_game_target_fps 'com.dts.freefiremax_32053_120:com.pubg.imobile_32053_90:com.activision.callofduty.shooter_32053_120:com.supercell.clashroyale_32053_120'
+adb shell settings put secure key_gamewatch_eco_super_solution '[com.dts.freefiremax,com.pubg.imobile,com.activision.callofduty.shooter,com.supercell.clashroyale]'
+adb shell settings put secure key_gamewatch_eco_frame_inter '[com.dts.freefiremax,com.pubg.imobile,com.activision.callofduty.shooter,com.supercell.clashroyale]'
+adb shell settings put system key_frame_interpolation_ecosystem '[com.dts.freefiremax,com.pubg.imobile,com.activision.callofduty.shooter,com.supercell.clashroyale]'
 ```
 
 ### 7. Vivo Hardware Scheduler Game Whitelists

@@ -56,12 +56,15 @@ Write-Host "[3/10] Forcing Updatable Production Game Driver..." -ForegroundColor
 & $adb shell "settings put global updatable_driver_production_opt_out_apps ''"
 Write-Host "       Game Driver: Hardware-accelerated GPU pipeline active for all games" -ForegroundColor Green
 
-Write-Host "[4/10] Enabling Vivo Hawkeye Visual Mode and Vivid Color Gamut..." -ForegroundColor Cyan
+Write-Host "[4/10] Enabling Vivo Hawkeye Visual Mode, Super Solution and DCI-P3 Gamut..." -ForegroundColor Cyan
 & $adb shell "settings put system gamecube_hawkeye_effective 1"
 & $adb shell "settings put system game_4d_shock_enabled 1"
 & $adb shell "settings put system vivo_display_color_mode 2"
 & $adb shell "settings put system vivo_display_color_mode_setting 2"
-Write-Host "       Visuals: Hawkeye detail enhancement active, DCI-P3 wide gamut active" -ForegroundColor Green
+& $adb shell "settings put secure key_gamewatch_eco_super_solution '[com.dts.freefiremax,com.pubg.imobile,com.activision.callofduty.shooter,com.supercell.clashroyale]'"
+& $adb shell "settings put secure key_gamewatch_eco_frame_inter '[com.dts.freefiremax,com.pubg.imobile,com.activision.callofduty.shooter,com.supercell.clashroyale]'"
+& $adb shell "settings put system key_frame_interpolation_ecosystem '[com.dts.freefiremax,com.pubg.imobile,com.activision.callofduty.shooter,com.supercell.clashroyale]'"
+Write-Host "       Visuals: Hawkeye detail enhancement active, VSR Super Solution active, MEMC interpolation active" -ForegroundColor Green
 
 Write-Host "`n--- PILLAR 3: VIVO GAMECUBE AND KERNEL SCHEDULING ---" -ForegroundColor Yellow
 Write-Host "[5/10] Overriding Android Game Manager FPS Targets and Native Overlays..." -ForegroundColor Cyan
@@ -75,13 +78,15 @@ Write-Host "[5/10] Overriding Android Game Manager FPS Targets and Native Overla
 & $adb shell "/system/bin/device_config put game_overlay com.supercell.clashroyale mode=2,fps=120:mode=3,fps=120"
 Write-Host "       FPS Targets: 120 FPS (Free Fire, COD, Clash Royale), 90 FPS (BGMI) in Game Manager and DeviceConfig" -ForegroundColor Green
 
-Write-Host "[6/10] Activating Vivo GameCube More FPS, Promotion Mode and Monster Governor..." -ForegroundColor Cyan
+Write-Host "[6/10] Activating Vivo GameCube More FPS, Promotion Mode and GameWatch 120 FPS..." -ForegroundColor Cyan
 & $adb shell "settings put system game_scene_more_fps 1"
 & $adb shell "settings put system game_standard_promotion_mode 1"
 & $adb shell "settings put system is_game_mode 1"
 & $adb shell "settings put system pemMonsterState 1"
 & $adb shell "settings put secure gamewatch_vcs_mode 1"
-Write-Host "       Vivo Scheduler: More FPS Engine, Promotion Mode, Monster Mode and VCS Active" -ForegroundColor Green
+& $adb shell "settings put system gamewatch_game_target_fps 120"
+& $adb shell "settings put system sdk_game_target_fps 'com.dts.freefiremax_32053_120:com.pubg.imobile_32053_90:com.activision.callofduty.shooter_32053_120:com.supercell.clashroyale_32053_120'"
+Write-Host "       Vivo Scheduler: More FPS Engine, Promotion Mode, Monster Governor, GameWatch 120 FPS and SDK Targets Active" -ForegroundColor Green
 
 Write-Host "[7/10] Ingesting games into Vivo Hardware Prioritization Whitelists..." -ForegroundColor Cyan
 & $adb shell "settings put system perf_game_list 'com.dts.freefiremax:com.pubg.imobile:com.activision.callofduty.shooter:com.supercell.clashroyale:com.tencent.ig:com.garena.game.codm:'"
