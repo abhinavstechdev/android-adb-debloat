@@ -1,6 +1,6 @@
-# Android ADB Debloat
+# Android ADB Debloat & Gaming Performance Toolkit
 
-A safety-first ADB package review toolkit and AI agent skill focused on **Vivo and iQOO smartphones** (Funtouch OS & OriginOS).
+A safety-first ADB package review and gaming optimization toolkit supporting **Vivo & iQOO smartphones** (Funtouch OS & OriginOS) as well as **Nothing Phone** (Nothing OS / Android 14–16).
 
 **Inspect → Identify → Assess → Confirm → Change One Package → Verify → Restore if Needed.**
 
@@ -61,9 +61,19 @@ A safety-first ADB package review toolkit and AI agent skill focused on **Vivo a
 
 ---
 
+## Wireless Debugging Pairing Assistant
+
+To easily pair and connect any Android 11+ device over Wi-Fi without USB:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/pair_device.ps1 -PairingPort <Port> -PairingCode <Code>
+```
+
+---
+
 ## Gaming & Performance Optimization Tool
 
-To apply all 10 deep gaming optimizations (120Hz lock, DisplayManager unclamp, Game Driver, Vivo GameCube More FPS, AOT machine compilation, power whitelist, touch & ping stabilization):
+To apply all 10 deep gaming optimizations (120Hz lock, DisplayManager unclamp, Game Driver, Game Manager 120 FPS target, AOT machine compilation, power whitelist, touch & ping stabilization for Free Fire India, BGMI, COD Mobile):
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/optimize_gaming.ps1

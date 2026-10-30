@@ -64,7 +64,7 @@ adb shell /system/bin/device_config put display_manager com.android.server.displ
 * **The Tweak:** Clear the opt-out list, enable the updatable driver globally, and explicitly opt-in target games:
 ```bat
 adb shell settings put global updatable_driver_all_apps 1
-adb shell settings put global updatable_driver_production_opt_in_apps 'com.dts.freefiremax,com.pubg.imobile,com.activision.callofduty.shooter,com.supercell.clashroyale'
+adb shell settings put global updatable_driver_production_opt_in_apps 'com.garena.game.ffi,com.dts.freefiremax,com.pubg.imobile,com.activision.callofduty.shooter,com.supercell.clashroyale'
 adb shell settings put global updatable_driver_production_opt_out_apps ''
 ```
 
@@ -86,10 +86,14 @@ adb shell settings put system vivo_display_color_mode_setting 2
 * **The Problem:** Games without explicit Android 15 intervention flags fall back to the standard 60 FPS profile.
 * **The Tweak:** Override the Game Manager target framerate using Android's native intervention engine (`cmd game`):
 ```bat
+adb shell cmd game set --fps 120 com.garena.game.ffi
+adb shell cmd game mode custom com.garena.game.ffi
 adb shell cmd game set --fps 120 com.dts.freefiremax
 adb shell cmd game set --fps 90 com.pubg.imobile
 adb shell cmd game set --fps 120 com.activision.callofduty.shooter
 adb shell cmd game set --fps 120 com.supercell.clashroyale
+adb shell /system/bin/device_config put game_overlay com.garena.game.ffi mode=2,fps=120:mode=3,fps=120:mode=4,fps=120
+adb shell /system/bin/device_config put game_overlay com.dts.freefiremax mode=2,fps=120:mode=3,fps=120
 ```
 
 ### 6. Vivo GameCube "More FPS" Engine, GameWatch 120 FPS & Super Solution
@@ -102,19 +106,20 @@ adb shell settings put system is_game_mode 1
 adb shell settings put system pemMonsterState 1
 adb shell settings put secure gamewatch_vcs_mode 1
 adb shell settings put system gamewatch_game_target_fps 120
-adb shell settings put system sdk_game_target_fps 'com.dts.freefiremax_32053_120:com.pubg.imobile_32053_90:com.activision.callofduty.shooter_32053_120:com.supercell.clashroyale_32053_120'
-adb shell settings put secure key_gamewatch_eco_super_solution '[com.dts.freefiremax,com.pubg.imobile,com.activision.callofduty.shooter,com.supercell.clashroyale]'
-adb shell settings put secure key_gamewatch_eco_frame_inter '[com.dts.freefiremax,com.pubg.imobile,com.activision.callofduty.shooter,com.supercell.clashroyale]'
-adb shell settings put system key_frame_interpolation_ecosystem '[com.dts.freefiremax,com.pubg.imobile,com.activision.callofduty.shooter,com.supercell.clashroyale]'
+adb shell settings put system sdk_game_target_fps 'com.garena.game.ffi_32053_120:com.dts.freefiremax_32053_120:com.pubg.imobile_32053_90:com.activision.callofduty.shooter_32053_120:com.supercell.clashroyale_32053_120'
+adb shell settings put secure key_gamewatch_eco_super_solution '[com.garena.game.ffi,com.dts.freefiremax,com.pubg.imobile,com.activision.callofduty.shooter,com.supercell.clashroyale]'
+adb shell settings put secure key_gamewatch_eco_frame_inter '[com.garena.game.ffi,com.dts.freefiremax,com.pubg.imobile,com.activision.callofduty.shooter,com.supercell.clashroyale]'
+adb shell settings put system key_frame_interpolation_ecosystem '[com.garena.game.ffi,com.dts.freefiremax,com.pubg.imobile,com.activision.callofduty.shooter,com.supercell.clashroyale]'
 ```
 
 ### 7. Vivo Hardware Scheduler Game Whitelists
 * **The Problem:** The MediaTek Dimensity 7200 CPU scheduler dynamically allocates big Cortex-A715 performance cores based on OEM whitelists (`perf_game_list`, `enabled_performance_optimization`, and `pem_ddc_open_game_list`). Several popular games were missing from these lists.
 * **The Tweak:** Register all user games into Vivo's performance lists:
 ```bat
-adb shell settings put system perf_game_list 'com.dts.freefiremax:com.pubg.imobile:com.activision.callofduty.shooter:com.supercell.clashroyale:com.tencent.ig:com.garena.game.codm:'
-adb shell settings put system enabled_performance_optimization 'com.dts.freefiremax:com.pubg.imobile:com.activision.callofduty.shooter:com.supercell.clashroyale:'
-adb shell settings put system pem_ddc_open_game_list 'com.dts.freefiremax:com.pubg.imobile:com.activision.callofduty.shooter:com.supercell.clashroyale:'
+adb shell settings put system perf_game_list 'com.garena.game.ffi:com.dts.freefiremax:com.pubg.imobile:com.activision.callofduty.shooter:com.supercell.clashroyale:com.tencent.ig:com.garena.game.codm:'
+adb shell settings put system enabled_performance_optimization 'com.garena.game.ffi:com.dts.freefiremax:com.pubg.imobile:com.activision.callofduty.shooter:com.supercell.clashroyale:'
+adb shell settings put system pem_ddc_open_game_list 'com.garena.game.ffi:com.dts.freefiremax:com.pubg.imobile:com.activision.callofduty.shooter:com.supercell.clashroyale:'
+adb shell settings put system pem_ddc_add_remove_game 'com.garena.game.ffi#1'
 ```
 
 ---
@@ -125,6 +130,7 @@ adb shell settings put system pem_ddc_open_game_list 'com.dts.freefiremax:com.pu
 * **The Problem:** Android's Doze / DeviceIdle manager treats apps running continuously for extended sessions as battery drains, eventually throttling CPU affinity and delaying network sockets.
 * **The Tweak:** Whitelist games from battery/CPU throttling and unconstrain the Android 15 Phantom Process Killer so companion voice apps (Discord) never get terminated:
 ```bat
+adb shell dumpsys deviceidle whitelist +com.garena.game.ffi
 adb shell dumpsys deviceidle whitelist +com.dts.freefiremax
 adb shell dumpsys deviceidle whitelist +com.pubg.imobile
 adb shell dumpsys deviceidle whitelist +com.activision.callofduty.shooter
@@ -136,6 +142,7 @@ adb shell /system/bin/device_config put activity_manager max_phantom_processes 2
 * **The Problem:** Default Android Just-In-Time (JIT) runtime compilation occurs dynamically during gameplay. When a sudden explosion, vehicle, smoke grenade, or new 3D asset enters the scene, background JIT compiler threads consume CPU cycles, causing micro-freezes.
 * **The Tweak:** Pre-compile all dex bytecode directly into optimized native ARM machine code:
 ```bat
+adb shell cmd package compile -m speed -f com.garena.game.ffi
 adb shell cmd package compile -m speed -f com.dts.freefiremax
 adb shell cmd package compile -m speed -f com.pubg.imobile
 adb shell cmd package compile -m speed -f com.activision.callofduty.shooter
